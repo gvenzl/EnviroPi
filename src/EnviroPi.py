@@ -22,6 +22,7 @@
 
 import argparse
 import datetime
+import time
 import json
 import requests
 
@@ -37,6 +38,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--id", required=True, help="The id of the sensor (can be any meaningful string")
     parser.add_argument("-e", "--endpoint", help="The entire REST endpoint (including http/https)")
+    parser.add_argument("-p", "--poll", type=int, help="Poll interval in seconds")
     args = parser.parse_args()
 
     air_quality_sensor = GroveAirQualitySensor(AIR_QUALITY_SENSOR_PIN)
@@ -63,7 +65,7 @@ def main():
             else:
                 data = {
                     "id": args.id,
-                    "tms_utc": tms,
+                    "tms_utc": tms.isoformat() + 'Z',
                     "air_pollution_pct": air_pollution,
                     "humidity_pct": humidity,
                     "temperature_celsius": temperature
@@ -73,6 +75,9 @@ def main():
                 http_response = requests.post(args.endpoint, data=json.dump(data), headers=headers)
                 if http_response.status_code != 200:
                     print("Error: " + http_response)
+
+            if args.poll is not None:
+                time.sleep(args.poll)
     except KeyboardInterrupt:
         print("Exiting program.")
 
