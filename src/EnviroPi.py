@@ -72,7 +72,7 @@ def main():
                 }
 
                 headers = {'Content-type': 'application/json'}
-                http_response = requests.post(args.endpoint, data=json.dump(data), headers=headers)
+                http_response = requests.post(args.endpoint, data=json.dumps(data), headers=headers)
                 if http_response.status_code != 200:
                     print("Error: " + http_response)
 
