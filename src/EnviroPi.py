@@ -30,7 +30,7 @@ from grove.grove_air_quality_sensor_v1_3 import GroveAirQualitySensor
 import seeed_dht
 
 AIR_QUALITY_SENSOR_PIN = 0  # Pin A0
-TEMPERATURE_SENSOR_MODEL = "22"  # DHT 22 model
+TEMPERATURE_SENSOR_MODEL = seeed_dht.DHT.DHT_TYPE["DHT22"]  # DHT 22 model
 TEMPERATURE_SENSOR_PIN = 12  # Pin 12 for PWM
 
 
