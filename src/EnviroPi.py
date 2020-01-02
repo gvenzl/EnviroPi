@@ -31,7 +31,7 @@ import seeed_dht
 
 AIR_QUALITY_SENSOR_PIN = 0  # Pin A0
 TEMPERATURE_SENSOR_MODEL = seeed_dht.DHT.DHT_TYPE["DHT22"]  # DHT 22 model
-TEMPERATURE_SENSOR_PIN = 12  # Pin 12 for PWM
+TEMPERATURE_SENSOR_PIN = 18  # Pin 12 for PWM
 
 
 def main():
