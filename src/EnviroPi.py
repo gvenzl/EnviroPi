@@ -74,7 +74,7 @@ def main():
                 headers = {'Content-type': 'application/json'}
                 http_response = requests.post(args.endpoint, data=json.dumps(data), headers=headers)
                 if http_response.status_code != 200:
-                    print("Error: " + http_response)
+                    print("Error: " + http_response.reason)
 
             if args.poll is not None:
                 time.sleep(args.poll)
