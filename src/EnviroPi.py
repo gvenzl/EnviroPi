@@ -66,9 +66,9 @@ def main():
                 data = {
                     "id": args.id,
                     "tms_utc": tms.isoformat() + 'Z',
-                    "air_pollution_pct": air_pollution,
-                    "humidity_pct": humidity,
-                    "temperature_celsius": temperature
+                    "air_poll_pct": air_pollution,
+                    "humi_pct": humidity,
+                    "temp_celsius": round(temperature, 1)
                 }
 
                 headers = {'Content-type': 'application/json'}
