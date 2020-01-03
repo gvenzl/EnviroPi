@@ -88,8 +88,8 @@ def main():
                 data = {
                     "id": args.id,
                     "tms_utc": tms.isoformat() + 'Z',
-                    "air_poll_pct": air_pollution,
-                    "humi_pct": humidity,
+                    "air_poll_pct": round(air_pollution, 1),
+                    "humi_pct": round(humidity, 1),
                     "temp_celsius": round(temperature, 1)
                 }
                 debug("Raw data:\n{0}".format(json.dumps(data, indent=4)))
