@@ -2,8 +2,8 @@
 #
 # Since: March, 2020
 # Author: gvenzl
-# Name: SenseHat.py
-# Description: The Sense Hat program
+# Name: bike_tracker.py
+# Description: The Bike Tracker program
 #
 # Copyright 2020 Gerald Venzl
 #
@@ -28,13 +28,15 @@ import sys
 hat = None
 
 # Readings
-temp = 0.0    # Temperature in Celsius
-humi = 0.0    # Humidity in percentage of relative humidity
-pres = 0.0    # Pressure in Millibars
-acce = None   # Accelerometer dictionary
-comp = 0.0    # Compass direction of North from the magnetometer in degrees
-gyro = None   # Gyroscope orientation in degrees from the gyroscope only
-orde = None   # current orientation in degrees, 0 to 360, using the aircraft principal axes of pitch, roll and yaw
+temp = 0.0         # Temperature in Celsius
+temp_humi = 0.0    # Temperature from humidity sensor
+temp_pres = 0.0    # Temperature from pressure sensor
+humi = 0.0         # Humidity in percentage of relative humidity
+pres = 0.0         # Pressure in Millibars
+acce = None        # Accelerometer dictionary
+comp = 0.0         # Compass direction of North from the magnetometer in degrees
+gyro = None        # Gyroscope orientation in degrees from the gyroscope only
+orde = None        # current orientation in degrees, 0 to 360, using the aircraft principal axes of pitch, roll and yaw
 
 
 def println(message):
@@ -114,6 +116,7 @@ def setup():
     """
     global hat
     hat = SenseHat()
+    hat.set_imu_config(True, True, True)
     hat.stick.direction_up = restart
     hat.stick.direction_right = check_connection
     hat.stick.direction_down = shutdown
@@ -123,8 +126,10 @@ def setup():
 def get_readings():
     """Get current readings.
     """
-    global temp, humi, pres, acce, comp, gyro, orde
+    global temp, temp_humi, temp_pres, humi, pres, acce, comp, gyro, orde
     temp = round(hat.get_temperature(), 1)
+    temp_humi = round(hat.get_temperature_from_humidity(), 1)
+    temp_pres = round(hat.get_temperature_from_pressure(), 1)
     humi = round(hat.get_humidity(), 1)
     pres = round(hat.get_pressure(), 1)
 
@@ -138,12 +143,15 @@ def print_readings():
     """Print the readings.
     """
     print("Temperature: {0}".format(temp))
-    print("Humidity: {0}".format(humi))
-    print("Pressure: {0}".format(pres))
-    print("Accelerometer: {0}".format(acce))
-    print("Compass: {0}".format(comp))
-    print("Gyroscope: {0}".format(gyro))
-    print("Orientation (degrees): {0}".format(orde))
+    print("Temperature humidity: {0}".format(temp_humi))
+    print("Temperature pressure: {0}\n".format(temp_pres))
+
+    print("Humidity: {0}\n".format(humi))
+    print("Pressure: {0}\n".format(pres))
+    print("Accelerometer: {0}\n".format(acce))
+    print("Compass: {0}\n".format(comp))
+    print("Gyroscope: {0}\n".format(gyro))
+    print("Orientation (degrees): {0}\n".format(orde))
 
 
 if __name__ == '__main__':
